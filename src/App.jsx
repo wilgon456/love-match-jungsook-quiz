@@ -332,8 +332,7 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
 
       <article className="result-card">
         <div className="section-head">
-          <h3>축별 해석</h3>
-          <p>총점보다 각 축 조합을 함께 보는 편이 더 정확합니다.</p>
+          <h3>가치관별 점수</h3>
         </div>
 
         <div className="dimension-list">
