@@ -34,6 +34,7 @@ body {
 
 button {
   font: inherit;
+  cursor: pointer;
 }
 
 .page-shell {
@@ -152,6 +153,7 @@ button {
     box-shadow 180ms ease,
     border-color 180ms ease,
     background 180ms ease;
+  cursor: pointer;
 }
 
 .person-chip small {
@@ -380,6 +382,7 @@ button {
     border-color 180ms ease,
     box-shadow 180ms ease,
     background 180ms ease;
+  cursor: pointer;
 }
 
 .scale-option:hover {
