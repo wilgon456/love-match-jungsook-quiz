@@ -17,7 +17,7 @@ export const characterProfiles = {
     generation: "30기",
     subtitle: "현장형 실무 감각과 빠른 판단이 강한 타입",
     image: {
-      src: "",
+      src: "https://mblogthumb-phinf.pstatic.net/MjAyNjAyMDVfMjUw/MDAxNzcwMjU1Mjg1MzMx.Q0pkQVzLz9B5f8hHYGXQGfpGVda0SK910Wc12vNVwDYg.C-oCTv9R7PP73lvokCiULY1eJRO8qIFWHfBEnIAK5wsg.JPEG/SE-97b737fc-507a-4685-8a76-aa747a3b66ef.jpg?type=w800",
       alt: "30기 영자 대표 이미지 자리",
       placeholder: "영자",
       note: "대표 이미지를 연결하면 이 영역에 자동으로 표시됩니다."
@@ -42,7 +42,7 @@ export const characterProfiles = {
     generation: "30기",
     subtitle: "행복 추구형 리액션 메이커",
     image: {
-      src: "",
+      src: "https://mblogthumb-phinf.pstatic.net/MjAyNjAyMDVfMTYg/MDAxNzcwMjU1Mjg1OTk4.y5Ovz4fXsXrGrlg9t0Azgt10mcva9akHAaWJp17p3W0g.SOwaaiAjKTzZmW0868MW8eVEEeEk5k_1Z1dPOKV3OKsg.JPEG/SE-aa149121-36b7-4cf9-9e55-9b94dc3ee16f.jpg?type=w800",
       alt: "30기 옥순 대표 이미지 자리",
       placeholder: "옥순",
       note: "대표 이미지를 연결하면 이 영역에 자동으로 표시됩니다."
@@ -67,7 +67,7 @@ export const characterProfiles = {
     generation: "30기",
     subtitle: "글로벌 감각과 기준이 분명한 능력형",
     image: {
-      src: "",
+      src: "https://mblogthumb-phinf.pstatic.net/MjAyNjAyMDVfMTg1/MDAxNzcwMjU1Mjc3NTM3.wSrUU8h2lPWkdtJwslqzb-uB3Ba-72rJEZXt0tAdlHYg.q3luuASFy0dfN8OSiDpw7XFYNxS7aV387mfOAWI5qA4g.JPEG/SE-afde8550-2fa8-4e27-b940-280adcbccceb.jpg?type=w800",
       alt: "30기 현숙 대표 이미지 자리",
       placeholder: "현숙",
       note: "대표 이미지를 연결하면 이 영역에 자동으로 표시됩니다."
@@ -93,7 +93,7 @@ export const characterProfiles = {
     generation: "30기",
     subtitle: "밝고 목표지향적인 직진형 리더",
     image: {
-      src: "",
+      src: "https://mblogthumb-phinf.pstatic.net/MjAyNjAyMDVfMjky/MDAxNzcwMjU1MjgzNDE2.zSrA6IqWc7KS0RJZMhSdAUQVRs2hwpd6GZDoJ3Bw668g.fvLqQQlNT4nNMlHldj-bP0ggBNN5ekjLfE9SExuIen4g.JPEG/SE-5a6e62c8-b778-442d-8a3e-9d1803928aa9.jpg?type=w800",
       alt: "30기 영숙 대표 이미지 자리",
       placeholder: "영숙",
       note: "대표 이미지를 연결하면 이 영역에 자동으로 표시됩니다."
@@ -119,7 +119,7 @@ export const characterProfiles = {
     generation: "30기",
     subtitle: "털털함과 솔직함이 돋보이는 직진형",
     image: {
-      src: "",
+      src: "https://mblogthumb-phinf.pstatic.net/MjAyNjAyMDVfOTUg/MDAxNzcwMjU1Mjg0MDgx.xRheIUi_OmV50NKdAB57ioDvqiTrvGoYW2ZZhCeVtxUg.W98WA40xR9rQzRrKTqCEKFwLREJCqQA8fZ_ijVcJE5og.JPEG/SE-f46f31bb-c669-41e3-af18-70245e9a00e5.jpg?type=w800",
       alt: "30기 정숙 대표 이미지 자리",
       placeholder: "정숙",
       note: "대표 이미지를 연결하면 이 영역에 자동으로 표시됩니다."
@@ -145,7 +145,7 @@ export const characterProfiles = {
     generation: "30기",
     subtitle: "차이를 인정하고 합의점을 찾는 안정형",
     image: {
-      src: "",
+      src: "https://mblogthumb-phinf.pstatic.net/MjAyNjAyMDVfMjk4/MDAxNzcwMjU1MjgyMTk3.FP2lFSa06ebTuyxYcvOwa8ocmg2MQnD8iSSi6RM2cWwg.qFfZPNLNGAgIK7kKb0RzqAiOElQznIv6x082PHITO4Qg.JPEG/SE-4707e69e-e9d7-47dc-a2ca-43e0e559d5f5.jpg?type=w800",
       alt: "30기 광수 대표 이미지 자리",
       placeholder: "광수",
       note: "대표 이미지를 연결하면 이 영역에 자동으로 표시됩니다."
@@ -170,7 +170,7 @@ export const characterProfiles = {
     generation: "30기",
     subtitle: "차분한 츤데레 결의 수줍은 안정형",
     image: {
-      src: "",
+      src: "https://mblogthumb-phinf.pstatic.net/MjAyNjAyMDVfMTAy/MDAxNzcwMjU1Mjc5NTU4.U_uA04k9fmdgFUINorCya562hfs1Ax-G5pfotqRyHuwg.Gjb361e4nLYV6YIwWfmKdAFbVDW2GjMqPG2VL4U0OZYg.JPEG/SE-afd8e55f-35ab-4c9c-a1ed-e66664fb83e8.jpg?type=w800",
       alt: "30기 영수 대표 이미지 자리",
       placeholder: "영수",
       note: "대표 이미지를 연결하면 이 영역에 자동으로 표시됩니다."
@@ -196,7 +196,7 @@ export const characterProfiles = {
     generation: "30기",
     subtitle: "배려를 크게 보는 사랑 우선형",
     image: {
-      src: "",
+      src: "https://mblogthumb-phinf.pstatic.net/MjAyNjAyMDVfNjgg/MDAxNzcwMjU1MjgxNjQ2.SrnwaCESyUefNY3ihkz_rDDvy5Naec1ahEXxUvlarQUg.mMCCAtoXJ3nJ1LlA9wQKej3oLa-2dcX5Dp_FoyoMr4Eg.JPEG/SE-e69f80db-ce6f-4248-b208-de28dd701fc2.jpg?type=w800",
       alt: "30기 영철 대표 이미지 자리",
       placeholder: "영철",
       note: "대표 이미지를 연결하면 이 영역에 자동으로 표시됩니다."
@@ -221,7 +221,7 @@ export const characterProfiles = {
     generation: "30기",
     subtitle: "조심스럽고 집돌이 기질이 있는 재롱형",
     image: {
-      src: "",
+      src: "https://mblogthumb-phinf.pstatic.net/MjAyNjAyMDVfOTQg/MDAxNzcwMjU1MjgyODA3.vE1R9kj3lGOYCXMz9Wi72LMUj2xahIa0VwrMrl7AN7Ig.968sWtUAbN6lhlkCQaoRMINIAc-mNVGRNa8Gz2jmOcIg.JPEG/SE-9ae7e020-f6b9-4355-b5a1-f73fc4f94555.jpg?type=w800",
       alt: "30기 상철 대표 이미지 자리",
       placeholder: "상철",
       note: "대표 이미지를 연결하면 이 영역에 자동으로 표시됩니다."
