@@ -348,29 +348,41 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
       </article>
 
       <article className="result-card">
-        <div className="section-head">
-          <h3>결과 해석 안내</h3>
-          <p>
-            이 결과는 공개 방송에서 드러난 {selectedPerson.generation} {selectedPerson.name}의 스타일을 기준으로
-            계산한 엔터테인먼트형 적합도입니다.
-          </p>
+        <div className="result-actions">
+          <button type="button" className="secondary-button" onClick={onReset}>
+            다시 풀기
+          </button>
+          <button
+            type="button"
+            className="primary-button"
+            onClick={() => handleShare(selectedPerson, result)}
+          >
+            공유하기
+          </button>
         </div>
-
-        <div className="guidance-grid">
-          <div className="guidance-box">
-            <p className="mini-label">의미하는 것</p>
-            <span>대화 방식, 진정성, 관계 텐션의 스타일 적합도</span>
-          </div>
-          <div className="guidance-box">
-            <p className="mini-label">의미하지 않는 것</p>
-            <span>실제 궁합, 실제 성격 진단, 실제 연애 성사 가능성</span>
-          </div>
-        </div>
-
-        <button type="button" className="secondary-button" onClick={onReset}>
-          다시 풀기
-        </button>
       </article>
     </section>
   );
+}
+
+async function handleShare(selectedPerson, result) {
+  const shareTitle = `나는 솔로 이상형 퀴즈 - ${selectedPerson.name} 결과`;
+  const shareText = `나는 ${selectedPerson.generation} ${selectedPerson.name} 스타일과 ${result.total}점, ${result.tier} 결과가 나왔어요.`;
+  const shareUrl = window.location.href;
+
+  try {
+    if (navigator.share) {
+      await navigator.share({
+        title: shareTitle,
+        text: shareText,
+        url: shareUrl
+      });
+      return;
+    }
+
+    await navigator.clipboard.writeText(shareUrl);
+    window.alert("링크가 복사되었습니다.");
+  } catch (error) {
+    window.alert("공유를 완료하지 못했습니다.");
+  }
 }

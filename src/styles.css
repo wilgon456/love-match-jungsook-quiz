@@ -462,7 +462,6 @@ button {
 }
 
 .secondary-button {
-  margin-top: 1.2rem;
   background: rgba(124, 53, 29, 0.08);
   color: var(--accent-dark);
   font-weight: 700;
@@ -497,6 +496,12 @@ button {
 
 .top-match-card strong {
   font-size: 1.2rem;
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
 }
 
 .section-head {
@@ -607,6 +612,15 @@ button {
 
   .profile-grid {
     grid-template-columns: 1fr;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-actions .primary-button,
+  .result-actions .secondary-button {
+    width: 100%;
   }
 
   .top-match-card {
