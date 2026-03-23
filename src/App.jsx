@@ -3,6 +3,17 @@ import { dimensions, questions, scaleLabels } from "./quizData";
 import { calculateResult, getDimensionSummary } from "./scoring";
 
 const scoreOptions = [1, 2, 3, 4, 5];
+const people = [
+  { id: "youngja", label: "영자", available: false },
+  { id: "oksun", label: "옥순", available: false },
+  { id: "hyunsook", label: "현숙", available: false },
+  { id: "youngsook", label: "영숙", available: false },
+  { id: "jungsook", label: "정숙", available: true },
+  { id: "kwangsoo", label: "광수", available: false },
+  { id: "youngsoo", label: "영수", available: false },
+  { id: "youngchul", label: "영철", available: false },
+  { id: "sangchul", label: "상철", available: false }
+];
 
 const dimensionAccent = {
   authenticity: "var(--accent-1)",
@@ -13,18 +24,22 @@ const dimensionAccent = {
 };
 
 export default function App() {
+  const [selectedPersonId, setSelectedPersonId] = useState("jungsook");
   const [answers, setAnswers] = useState({});
   const [showResult, setShowResult] = useState(false);
+  const selectedPerson =
+    people.find((person) => person.id === selectedPersonId) ?? people[4];
+  const isQuizAvailable = selectedPerson.available;
 
   const answeredCount = Object.keys(answers).length;
   const progress = Math.round((answeredCount / questions.length) * 100);
   const result = useMemo(() => {
-    if (!showResult || answeredCount !== questions.length) {
+    if (!isQuizAvailable || !showResult || answeredCount !== questions.length) {
       return null;
     }
 
     return calculateResult(answers);
-  }, [answers, answeredCount, showResult]);
+  }, [answers, answeredCount, isQuizAvailable, showResult]);
 
   function handleSelect(questionId, value) {
     setAnswers((current) => ({
@@ -48,6 +63,13 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  function handlePersonChange(personId) {
+    setSelectedPersonId(personId);
+    setAnswers({});
+    setShowResult(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
     <div className="page-shell">
       <div className="ambient ambient-left" />
@@ -56,11 +78,31 @@ export default function App() {
       <main className="app-frame">
         <section className="hero-card">
           <p className="eyebrow">ENTERTAINMENT QUIZ</p>
-          <h1>30기 정숙 스타일 적합도 퀴즈</h1>
+          <h1>30기 {selectedPerson.label} 스타일 적합도 퀴즈</h1>
           <p className="hero-copy">
-            방송 속 30기 정숙의 말투, 관계 텐션, 표현 방식을 바탕으로
-            당신이 얼마나 잘 맞는지 확인하는 테스트입니다.
+            {isQuizAvailable
+              ? `방송 속 30기 ${selectedPerson.label}의 말투, 관계 텐션, 표현 방식을 바탕으로 당신이 얼마나 잘 맞는지 확인하는 테스트입니다.`
+              : `30기 ${selectedPerson.label} 스타일 퀴즈도 선택할 수 있게 준비 중입니다. 지금은 정숙 퀴즈를 먼저 체험할 수 있습니다.`}
           </p>
+
+          <div className="people-selector" aria-label="인물 선택">
+            {people.map((person) => {
+              const selected = person.id === selectedPersonId;
+
+              return (
+                <button
+                  key={person.id}
+                  type="button"
+                  className={`person-chip ${selected ? "selected" : ""} ${person.available ? "available" : "pending"}`}
+                  onClick={() => handlePersonChange(person.id)}
+                  aria-pressed={selected}
+                >
+                  <span>{person.label}</span>
+                  {!person.available && <small>준비중</small>}
+                </button>
+              );
+            })}
+          </div>
 
           <div className="hero-badges">
             <span>질문 15개</span>
@@ -74,7 +116,9 @@ export default function App() {
           </div>
         </section>
 
-        {showResult && result ? (
+        {!isQuizAvailable ? (
+          <ComingSoonView onSelectJungsook={() => handlePersonChange("jungsook")} />
+        ) : showResult && result ? (
           <ResultView result={result} onReset={handleReset} />
         ) : (
           <>
@@ -147,6 +191,34 @@ export default function App() {
         )}
       </main>
     </div>
+  );
+}
+
+function ComingSoonView({ onSelectJungsook }) {
+  return (
+    <section className="result-stack">
+      <article className="result-card">
+        <div className="section-head">
+          <h3>이 인물 퀴즈는 준비 중입니다</h3>
+          <p>선택 UI는 먼저 열어두었고, 실제 문항과 점수 로직은 순차적으로 추가할 예정입니다.</p>
+        </div>
+
+        <div className="guidance-grid">
+          <div className="guidance-box">
+            <p className="mini-label">지금 체험 가능</p>
+            <span>30기 정숙 스타일 적합도 퀴즈</span>
+          </div>
+          <div className="guidance-box">
+            <p className="mini-label">추가 예정</p>
+            <span>영자, 옥순, 현숙, 영숙, 광수, 영수, 영철, 상철</span>
+          </div>
+        </div>
+
+        <button type="button" className="primary-button" onClick={onSelectJungsook}>
+          정숙 퀴즈 체험하기
+        </button>
+      </article>
+    </section>
   );
 }
 
