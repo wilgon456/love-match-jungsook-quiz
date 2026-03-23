@@ -290,14 +290,29 @@ button {
 
 .profile-grid {
   display: grid;
-  grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.1fr);
-  gap: 1rem;
+  grid-template-columns: 1fr;
   margin-top: 1.25rem;
 }
 
-.image-card,
-.persona-card {
+.merged-profile-card {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.merged-profile-content {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+  gap: 1rem;
+}
+
+.merged-image-pane,
+.merged-persona-pane {
   min-height: 100%;
+}
+
+.merged-persona-pane {
+  padding-left: 1rem;
+  border-left: 1px solid rgba(115, 84, 65, 0.08);
 }
 
 .character-image,
@@ -612,6 +627,17 @@ button {
 
   .profile-grid {
     grid-template-columns: 1fr;
+  }
+
+  .merged-profile-content {
+    grid-template-columns: 1fr;
+  }
+
+  .merged-persona-pane {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid rgba(115, 84, 65, 0.08);
+    padding-top: 1rem;
   }
 
   .result-actions {

@@ -78,26 +78,6 @@ export default function App() {
             나는 솔로 30기 방송 속 인물들의 캐릭터를 바탕으로 당신이 각자의 캐릭터와 얼마나 잘 맞는이 확인하는 이상형 테스트입니다.
           </p>
 
-          <div className="people-selector" aria-label="인물 선택">
-            {characterOrder.map((personId) => {
-              const person = characterProfiles[personId];
-              const selected = personId === selectedPersonId;
-
-              return (
-                <button
-                  key={person.id}
-                  type="button"
-                  className={`person-chip ${selected ? "selected" : ""} ${person.quizAvailable ? "available" : "pending"}`}
-                  onClick={() => handlePersonChange(person.id)}
-                  aria-pressed={selected}
-                >
-                  <span>{person.name}</span>
-                  {!person.quizAvailable && <small>준비중</small>}
-                </button>
-              );
-            })}
-          </div>
-
           <div className="hero-badges">
             {isQuizAvailable ? (
               selectedQuiz.badges.map((badge) => <span key={badge}>{badge}</span>)
@@ -114,49 +94,76 @@ export default function App() {
         </section>
 
         <section className="profile-grid">
-          <article className="profile-card image-card">
-            <div className="section-head">
-              <h3>인물 이미지</h3>
-              <p>인물별 대표 이미지를 별도로 연결하는 자리입니다.</p>
+          <article className="profile-card merged-profile-card">
+            <div className="people-selector" aria-label="인물 선택">
+              {characterOrder.map((personId) => {
+                const person = characterProfiles[personId];
+                const selected = personId === selectedPersonId;
+
+                return (
+                  <button
+                    key={person.id}
+                    type="button"
+                    className={`person-chip ${selected ? "selected" : ""} ${person.quizAvailable ? "available" : "pending"}`}
+                    onClick={() => handlePersonChange(person.id)}
+                    aria-pressed={selected}
+                  >
+                    <span>{person.name}</span>
+                    {!person.quizAvailable && <small>준비중</small>}
+                  </button>
+                );
+              })}
             </div>
 
-            {selectedPerson.image.src ? (
-              <img
-                className="character-image"
-                src={selectedPerson.image.src}
-                alt={selectedPerson.image.alt}
-              />
-            ) : (
-              <div className="image-placeholder" aria-label={selectedPerson.image.alt}>
-                <strong>{selectedPerson.image.placeholder}</strong>
-                <span>{selectedPerson.generation}</span>
+            <div className="merged-profile-content">
+              <div className="merged-image-pane">
+                <div className="section-head">
+                  <h3>인물 이미지</h3>
+                  <p>인물별 대표 이미지를 별도로 연결하는 자리입니다.</p>
+                </div>
+
+                {selectedPerson.image.src ? (
+                  <img
+                    className="character-image"
+                    src={selectedPerson.image.src}
+                    alt={selectedPerson.image.alt}
+                  />
+                ) : (
+                  <div
+                    className="image-placeholder"
+                    aria-label={selectedPerson.image.alt}
+                  >
+                    <strong>{selectedPerson.image.placeholder}</strong>
+                    <span>{selectedPerson.generation}</span>
+                  </div>
+                )}
+
+                <p className="profile-copy">{selectedPerson.image.note}</p>
               </div>
-            )}
 
-            <p className="profile-copy">{selectedPerson.image.note}</p>
-          </article>
+              <div className="merged-persona-pane">
+                <div className="section-head">
+                  <div>
+                    <h3>페르소나 요약</h3>
+                    <p>{selectedPerson.subtitle}</p>
+                  </div>
+                </div>
 
-          <article className="profile-card persona-card">
-            <div className="section-head">
-              <div>
-                <h3>페르소나 요약</h3>
-                <p>{selectedPerson.subtitle}</p>
+                <div className="meta-chips">
+                  {selectedPerson.meta.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+
+                <ul className="persona-list">
+                  {selectedPerson.persona.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+
+                <p className="profile-copy">{selectedPerson.sourceNote}</p>
               </div>
             </div>
-
-            <div className="meta-chips">
-              {selectedPerson.meta.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </div>
-
-            <ul className="persona-list">
-              {selectedPerson.persona.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-
-            <p className="profile-copy">{selectedPerson.sourceNote}</p>
           </article>
         </section>
 
