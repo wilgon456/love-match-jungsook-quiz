@@ -78,19 +78,11 @@ export default function App() {
             나는 솔로 30기 방송 속 인물들의 캐릭터를 바탕으로 당신이 각자의 캐릭터와 얼마나 잘 맞는이 확인하는 이상형 테스트입니다.
           </p>
 
-          <div className="hero-badges">
-            {isQuizAvailable ? (
-              selectedQuiz.badges.map((badge) => <span key={badge}>{badge}</span>)
-            ) : (
-              <>
-                <span>페르소나 요약</span>
-                <span>이미지 슬롯 분리</span>
-                <span>퀴즈 준비 중</span>
-              </>
-            )}
+          <div className="notice-card">
+            {isQuizAvailable
+              ? `질문 ${selectedQuiz.questions.length}개, 약 4~5분이 소요되며 결과는 총점과 5개 축 분석으로 제공됩니다. ${selectedQuiz.note}`
+              : selectedPerson.sourceNote}
           </div>
-
-          <div className="notice-card">{isQuizAvailable ? selectedQuiz.note : selectedPerson.sourceNote}</div>
         </section>
 
         <section className="profile-grid">
