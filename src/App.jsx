@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { toBlob } from "html-to-image";
 import { characterOrder, characterProfiles } from "./characters";
 import { quizConfigs, scaleLabels } from "./quizzes";
 import { calculateResult, getDimensionSummary } from "./scoring";
@@ -24,6 +25,8 @@ export default function App() {
   const [selectedPersonId, setSelectedPersonId] = useState("jungsook");
   const [answers, setAnswers] = useState({});
   const [showResult, setShowResult] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
+  const resultCaptureRef = useRef(null);
   const selectedPerson = characterProfiles[selectedPersonId];
   const selectedQuiz = quizConfigs[selectedPersonId] ?? null;
   const isQuizAvailable = Boolean(selectedQuiz);
@@ -68,6 +71,20 @@ export default function App() {
     setAnswers({});
     setShowResult(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  async function handleShareResult() {
+    if (!resultCaptureRef.current || !result) {
+      return;
+    }
+
+    setIsSharing(true);
+
+    try {
+      await handleShare(resultCaptureRef.current, selectedPerson, result);
+    } finally {
+      setIsSharing(false);
+    }
   }
 
   return (
@@ -194,6 +211,9 @@ export default function App() {
             dimensions={selectedQuiz.dimensions}
             selectedPerson={selectedPerson}
             onReset={handleReset}
+            onShare={handleShareResult}
+            isSharing={isSharing}
+            captureRef={resultCaptureRef}
           />
         ) : (
           <>
@@ -297,7 +317,15 @@ function ComingSoonView({ selectedPerson, onSelectJungsook }) {
   );
 }
 
-function ResultView({ result, dimensions, selectedPerson, onReset }) {
+function ResultView({
+  result,
+  dimensions,
+  selectedPerson,
+  onReset,
+  onShare,
+  isSharing,
+  captureRef
+}) {
   const rankedDimensions = Object.entries(result.dimensionScores).sort(
     (a, b) => b[1] - a[1]
   );
@@ -311,6 +339,7 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
 
   return (
     <section className="result-stack">
+      <div className="share-capture" ref={captureRef}>
       <article className="result-card spotlight">
         <p className="eyebrow result-title">
           당신과 {selectedPerson.generation} {selectedPerson.name}와의 적합도
@@ -368,6 +397,7 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
           })}
         </div>
       </article>
+      </div>
 
       <article className="result-card">
         <div className="result-actions">
@@ -377,9 +407,10 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
           <button
             type="button"
             className="primary-button"
-            onClick={() => handleShare(selectedPerson, result)}
+            onClick={onShare}
+            disabled={isSharing}
           >
-            공유하기
+            {isSharing ? "이미지 준비 중" : "공유하기"}
           </button>
         </div>
       </article>
@@ -387,24 +418,41 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
   );
 }
 
-async function handleShare(selectedPerson, result) {
+async function handleShare(captureElement, selectedPerson, result) {
   const shareTitle = `나는 솔로 이상형 퀴즈 - ${selectedPerson.name} 결과`;
   const shareText = `나는 ${selectedPerson.generation} ${selectedPerson.name} 스타일과 ${result.total}점, ${result.tier} 결과가 나왔어요.`;
-  const shareUrl = window.location.href;
 
   try {
-    if (navigator.share) {
+    const blob = await toBlob(captureElement, {
+      cacheBust: true,
+      pixelRatio: 2,
+      backgroundColor: "#fffaf3"
+    });
+
+    if (!blob) {
+      throw new Error("Result capture failed");
+    }
+
+    const fileName = `${selectedPerson.generation}-${selectedPerson.name}-result.png`;
+    const file = new File([blob], fileName, { type: "image/png" });
+
+    if (navigator.share && navigator.canShare?.({ files: [file] })) {
       await navigator.share({
         title: shareTitle,
         text: shareText,
-        url: shareUrl
+        files: [file]
       });
       return;
     }
 
-    await navigator.clipboard.writeText(shareUrl);
-    window.alert("링크가 복사되었습니다.");
+    const downloadUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = fileName;
+    link.click();
+    URL.revokeObjectURL(downloadUrl);
+    window.alert("이미지 공유를 지원하지 않는 환경이라 PNG 파일 다운로드로 대신했어요.");
   } catch (error) {
-    window.alert("공유를 완료하지 못했습니다.");
+    window.alert("결과 이미지를 만드는 중 문제가 생겼습니다.");
   }
 }

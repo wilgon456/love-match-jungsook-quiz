@@ -512,6 +512,11 @@ button {
   gap: 1rem;
 }
 
+.share-capture {
+  display: grid;
+  gap: 1rem;
+}
+
 .spotlight {
   background:
     radial-gradient(circle at top right, rgba(245, 179, 101, 0.2), transparent 28%),
@@ -545,6 +550,7 @@ button {
 .result-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.85rem;
 }
 
