@@ -525,6 +525,7 @@ button {
 .share-capture {
   display: grid;
   gap: 1rem;
+  width: 100%;
 }
 
 .spotlight {

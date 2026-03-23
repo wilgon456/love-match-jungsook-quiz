@@ -462,10 +462,18 @@ async function handleShare(captureElement, selectedPerson, result) {
   const shareText = `나는 ${selectedPerson.generation} ${selectedPerson.name} 스타일과 ${result.total}점, ${result.tier} 결과가 나왔어요.`;
 
   try {
+    const captureWidth = captureElement.scrollWidth;
+    const captureHeight = captureElement.scrollHeight;
     const blob = await toBlob(captureElement, {
       cacheBust: true,
       pixelRatio: 2,
-      backgroundColor: "#fffaf3"
+      backgroundColor: "#fffaf3",
+      width: captureWidth,
+      height: captureHeight,
+      style: {
+        width: `${captureWidth}px`,
+        height: `${captureHeight}px`
+      }
     });
 
     if (!blob) {
