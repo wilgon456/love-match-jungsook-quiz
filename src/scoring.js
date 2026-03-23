@@ -2,8 +2,16 @@ function adjustScore(question, value) {
   return question.reverse ? 6 - value : value;
 }
 
-function normalizeDimension(sum) {
-  return Math.round(((sum - 3) / 12) * 100);
+function normalizeDimension(sum, count) {
+  if (!count) {
+    return 0;
+  }
+
+  const min = count;
+  const max = count * 5;
+  const normalized = ((sum - min) / (max - min)) * 100;
+
+  return Math.max(0, Math.min(100, Math.round(normalized)));
 }
 
 export function calculateResult(quiz, answers) {
@@ -26,7 +34,7 @@ export function calculateResult(quiz, answers) {
 
   for (const [key, values] of Object.entries(grouped)) {
     const sum = values.reduce((total, current) => total + current, 0);
-    dimensionScores[key] = normalizeDimension(sum);
+    dimensionScores[key] = normalizeDimension(sum, values.length);
   }
 
   const total = Math.round(
