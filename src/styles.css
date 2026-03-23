@@ -218,6 +218,12 @@ button {
   padding: 1.35rem;
 }
 
+.progress-card {
+  position: sticky;
+  top: 1rem;
+  z-index: 8;
+}
+
 .profile-card {
   padding: 1.35rem;
 }
@@ -557,6 +563,10 @@ button {
 
   .hero-card {
     padding: 1.35rem;
+  }
+
+  .progress-card {
+    top: 0.75rem;
   }
 
   .hero-card h1 {
