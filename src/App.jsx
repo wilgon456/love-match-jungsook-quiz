@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { toBlob } from "html-to-image";
 import { characterOrder, characterProfiles } from "./characters";
 import { quizConfigs, scaleLabels } from "./quizzes";
@@ -26,7 +26,11 @@ export default function App() {
   const [answers, setAnswers] = useState({});
   const [showResult, setShowResult] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
+  const [isProgressPinned, setIsProgressPinned] = useState(false);
+  const [progressCardHeight, setProgressCardHeight] = useState(0);
   const resultCaptureRef = useRef(null);
+  const progressAnchorRef = useRef(null);
+  const progressCardRef = useRef(null);
   const selectedPerson = characterProfiles[selectedPersonId];
   const selectedQuiz = quizConfigs[selectedPersonId] ?? null;
   const isQuizAvailable = Boolean(selectedQuiz);
@@ -43,6 +47,32 @@ export default function App() {
 
     return calculateResult(selectedQuiz, answers);
   }, [answers, answeredCount, isQuizAvailable, selectedQuiz, showResult, totalQuestionCount]);
+
+  useEffect(() => {
+    if (!isQuizAvailable || showResult) {
+      setIsProgressPinned(false);
+      return undefined;
+    }
+
+    function updateProgressCardPosition() {
+      if (progressCardRef.current) {
+        setProgressCardHeight(progressCardRef.current.offsetHeight);
+      }
+
+      const anchorTop = progressAnchorRef.current?.getBoundingClientRect().top ?? 0;
+      const threshold = window.innerWidth <= 720 ? 12 : 16;
+      setIsProgressPinned(anchorTop <= threshold);
+    }
+
+    updateProgressCardPosition();
+    window.addEventListener("scroll", updateProgressCardPosition, { passive: true });
+    window.addEventListener("resize", updateProgressCardPosition);
+
+    return () => {
+      window.removeEventListener("scroll", updateProgressCardPosition);
+      window.removeEventListener("resize", updateProgressCardPosition);
+    };
+  }, [isQuizAvailable, showResult, selectedPersonId, totalQuestionCount]);
 
   function handleSelect(questionId, value) {
     setAnswers((current) => ({
@@ -217,23 +247,32 @@ export default function App() {
           />
         ) : (
           <>
-            <section className="progress-card">
-              <div className="progress-topline">
-                <span>진행률</span>
-                <strong>
-                  {answeredCount}/{totalQuestionCount}
-                </strong>
-              </div>
-              <div className="progress-track" aria-hidden="true">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <p className="progress-copy">
-                모든 문항에 답하면 적합도와 축별 해석을 바로 볼 수 있습니다.
-              </p>
-            </section>
+            <div
+              className="progress-card-anchor"
+              ref={progressAnchorRef}
+              style={isProgressPinned ? { minHeight: `${progressCardHeight}px` } : undefined}
+            >
+              <section
+                className={`progress-card ${isProgressPinned ? "is-pinned" : ""}`}
+                ref={progressCardRef}
+              >
+                <div className="progress-topline">
+                  <span>진행률</span>
+                  <strong>
+                    {answeredCount}/{totalQuestionCount}
+                  </strong>
+                </div>
+                <div className="progress-track" aria-hidden="true">
+                  <div
+                    className="progress-fill"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+                <p className="progress-copy">
+                  모든 문항에 답하면 적합도와 축별 해석을 바로 볼 수 있습니다.
+                </p>
+              </section>
+            </div>
 
             <section className="question-list">
               {selectedQuiz.questions.map((question, index) => (

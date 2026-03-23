@@ -223,6 +223,7 @@ button {
   line-height: 1.65;
 }
 
+.progress-card-anchor,
 .progress-card,
 .submit-card,
 .result-stack,
@@ -237,9 +238,18 @@ button {
 }
 
 .progress-card {
-  position: sticky;
-  top: 1rem;
+  position: relative;
   z-index: 8;
+}
+
+.progress-card.is-pinned {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  z-index: 20;
+  width: min(1080px, calc(100% - 2rem));
+  margin-top: 0;
+  transform: translateX(-50%);
 }
 
 .profile-card {
@@ -628,7 +638,12 @@ button {
   }
 
   .progress-card {
+    margin-top: 0;
+  }
+
+  .progress-card.is-pinned {
     top: 0.75rem;
+    width: min(100%, calc(100% - 1rem));
   }
 
   .hero-card h1 {
