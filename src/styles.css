@@ -80,7 +80,8 @@ button {
 .progress-card,
 .question-card,
 .submit-card,
-.result-card {
+.result-card,
+.profile-card {
   background: var(--surface);
   backdrop-filter: blur(18px);
   border: 1px solid var(--line);
@@ -215,6 +216,10 @@ button {
   padding: 1.35rem;
 }
 
+.profile-card {
+  padding: 1.35rem;
+}
+
 .progress-topline,
 .score-row,
 .dimension-topline,
@@ -256,10 +261,87 @@ button {
 .section-head p,
 .result-summary,
 .dimension-copy,
-.submit-copy {
+.submit-copy,
+.profile-copy {
   margin: 0.8rem 0 0;
   color: var(--text-soft);
   line-height: 1.65;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.image-card,
+.persona-card {
+  min-height: 100%;
+}
+
+.character-image,
+.image-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  margin-top: 1rem;
+  border-radius: 24px;
+}
+
+.character-image {
+  object-fit: cover;
+  border: 1px solid rgba(115, 84, 65, 0.1);
+}
+
+.image-placeholder {
+  display: grid;
+  place-content: center;
+  gap: 0.45rem;
+  background:
+    radial-gradient(circle at top right, rgba(246, 180, 118, 0.28), transparent 28%),
+    linear-gradient(135deg, rgba(255, 248, 241, 0.96), rgba(253, 239, 226, 0.96));
+  border: 1px dashed rgba(124, 53, 29, 0.18);
+  text-align: center;
+}
+
+.image-placeholder strong {
+  font-size: clamp(2rem, 6vw, 3.8rem);
+  letter-spacing: -0.04em;
+}
+
+.image-placeholder span {
+  color: var(--text-soft);
+  font-weight: 700;
+}
+
+.meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.meta-chips span {
+  display: inline-flex;
+  min-height: 2.2rem;
+  align-items: center;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(124, 53, 29, 0.1);
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+.persona-list {
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--text-soft);
+}
+
+.persona-list li {
+  margin-top: 0.75rem;
+  line-height: 1.7;
 }
 
 .question-list {
@@ -500,6 +582,10 @@ button {
   }
 
   .guidance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-grid {
     grid-template-columns: 1fr;
   }
 

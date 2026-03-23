@@ -1,19 +1,9 @@
 import { useMemo, useState } from "react";
-import { dimensions, questions, scaleLabels } from "./quizData";
+import { characterOrder, characterProfiles } from "./characters";
+import { quizConfigs, scaleLabels } from "./quizzes";
 import { calculateResult, getDimensionSummary } from "./scoring";
 
 const scoreOptions = [1, 2, 3, 4, 5];
-const people = [
-  { id: "youngja", label: "영자", available: false },
-  { id: "oksun", label: "옥순", available: false },
-  { id: "hyunsook", label: "현숙", available: false },
-  { id: "youngsook", label: "영숙", available: false },
-  { id: "jungsook", label: "정숙", available: true },
-  { id: "kwangsoo", label: "광수", available: false },
-  { id: "youngsoo", label: "영수", available: false },
-  { id: "youngchul", label: "영철", available: false },
-  { id: "sangchul", label: "상철", available: false }
-];
 
 const dimensionAccent = {
   authenticity: "var(--accent-1)",
@@ -27,19 +17,22 @@ export default function App() {
   const [selectedPersonId, setSelectedPersonId] = useState("jungsook");
   const [answers, setAnswers] = useState({});
   const [showResult, setShowResult] = useState(false);
-  const selectedPerson =
-    people.find((person) => person.id === selectedPersonId) ?? people[4];
-  const isQuizAvailable = selectedPerson.available;
+  const selectedPerson = characterProfiles[selectedPersonId];
+  const selectedQuiz = quizConfigs[selectedPersonId] ?? null;
+  const isQuizAvailable = Boolean(selectedQuiz);
 
   const answeredCount = Object.keys(answers).length;
-  const progress = Math.round((answeredCount / questions.length) * 100);
+  const totalQuestionCount = selectedQuiz?.questions.length ?? 0;
+  const progress = totalQuestionCount
+    ? Math.round((answeredCount / totalQuestionCount) * 100)
+    : 0;
   const result = useMemo(() => {
-    if (!isQuizAvailable || !showResult || answeredCount !== questions.length) {
+    if (!isQuizAvailable || !showResult || answeredCount !== totalQuestionCount) {
       return null;
     }
 
-    return calculateResult(answers);
-  }, [answers, answeredCount, isQuizAvailable, showResult]);
+    return calculateResult(selectedQuiz, answers);
+  }, [answers, answeredCount, isQuizAvailable, selectedQuiz, showResult, totalQuestionCount]);
 
   function handleSelect(questionId, value) {
     setAnswers((current) => ({
@@ -49,7 +42,7 @@ export default function App() {
   }
 
   function handleSubmit() {
-    if (answeredCount !== questions.length) {
+    if (answeredCount !== totalQuestionCount) {
       return;
     }
 
@@ -78,55 +71,116 @@ export default function App() {
       <main className="app-frame">
         <section className="hero-card">
           <p className="eyebrow">ENTERTAINMENT QUIZ</p>
-          <h1>30기 {selectedPerson.label} 스타일 적합도 퀴즈</h1>
+          <h1>
+            {selectedPerson.generation} {selectedPerson.name} 스타일 적합도 퀴즈
+          </h1>
           <p className="hero-copy">
             {isQuizAvailable
-              ? `방송 속 30기 ${selectedPerson.label}의 말투, 관계 텐션, 표현 방식을 바탕으로 당신이 얼마나 잘 맞는지 확인하는 테스트입니다.`
-              : `30기 ${selectedPerson.label} 스타일 퀴즈도 선택할 수 있게 준비 중입니다. 지금은 정숙 퀴즈를 먼저 체험할 수 있습니다.`}
+              ? selectedQuiz.description
+              : `${selectedPerson.generation} ${selectedPerson.name} 스타일 퀴즈도 선택할 수 있게 준비 중입니다. 지금은 정숙 퀴즈를 먼저 체험할 수 있습니다.`}
           </p>
 
           <div className="people-selector" aria-label="인물 선택">
-            {people.map((person) => {
-              const selected = person.id === selectedPersonId;
+            {characterOrder.map((personId) => {
+              const person = characterProfiles[personId];
+              const selected = personId === selectedPersonId;
 
               return (
                 <button
                   key={person.id}
                   type="button"
-                  className={`person-chip ${selected ? "selected" : ""} ${person.available ? "available" : "pending"}`}
+                  className={`person-chip ${selected ? "selected" : ""} ${person.quizAvailable ? "available" : "pending"}`}
                   onClick={() => handlePersonChange(person.id)}
                   aria-pressed={selected}
                 >
-                  <span>{person.label}</span>
-                  {!person.available && <small>준비중</small>}
+                  <span>{person.name}</span>
+                  {!person.quizAvailable && <small>준비중</small>}
                 </button>
               );
             })}
           </div>
 
           <div className="hero-badges">
-            <span>질문 15개</span>
-            <span>약 3분</span>
-            <span>결과 총점 + 5개 축 분석</span>
+            {isQuizAvailable ? (
+              selectedQuiz.badges.map((badge) => <span key={badge}>{badge}</span>)
+            ) : (
+              <>
+                <span>페르소나 요약</span>
+                <span>이미지 슬롯 분리</span>
+                <span>퀴즈 준비 중</span>
+              </>
+            )}
           </div>
 
-          <div className="notice-card">
-            이 테스트는 실제 인물과의 궁합이 아니라, 공개 방송에서 드러난
-            스타일 적합도를 엔터테인먼트형으로 해석한 결과입니다.
-          </div>
+          <div className="notice-card">{isQuizAvailable ? selectedQuiz.note : selectedPerson.sourceNote}</div>
+        </section>
+
+        <section className="profile-grid">
+          <article className="profile-card image-card">
+            <div className="section-head">
+              <h3>인물 이미지</h3>
+              <p>인물별 대표 이미지를 별도로 연결하는 자리입니다.</p>
+            </div>
+
+            {selectedPerson.image.src ? (
+              <img
+                className="character-image"
+                src={selectedPerson.image.src}
+                alt={selectedPerson.image.alt}
+              />
+            ) : (
+              <div className="image-placeholder" aria-label={selectedPerson.image.alt}>
+                <strong>{selectedPerson.image.placeholder}</strong>
+                <span>{selectedPerson.generation}</span>
+              </div>
+            )}
+
+            <p className="profile-copy">{selectedPerson.image.note}</p>
+          </article>
+
+          <article className="profile-card persona-card">
+            <div className="section-head">
+              <div>
+                <h3>페르소나 요약</h3>
+                <p>{selectedPerson.subtitle}</p>
+              </div>
+            </div>
+
+            <div className="meta-chips">
+              {selectedPerson.meta.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+
+            <ul className="persona-list">
+              {selectedPerson.persona.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+
+            <p className="profile-copy">{selectedPerson.sourceNote}</p>
+          </article>
         </section>
 
         {!isQuizAvailable ? (
-          <ComingSoonView onSelectJungsook={() => handlePersonChange("jungsook")} />
+          <ComingSoonView
+            selectedPerson={selectedPerson}
+            onSelectJungsook={() => handlePersonChange("jungsook")}
+          />
         ) : showResult && result ? (
-          <ResultView result={result} onReset={handleReset} />
+          <ResultView
+            result={result}
+            dimensions={selectedQuiz.dimensions}
+            selectedPerson={selectedPerson}
+            onReset={handleReset}
+          />
         ) : (
           <>
             <section className="progress-card">
               <div className="progress-topline">
                 <span>진행률</span>
                 <strong>
-                  {answeredCount}/{questions.length}
+                  {answeredCount}/{totalQuestionCount}
                 </strong>
               </div>
               <div className="progress-track" aria-hidden="true">
@@ -141,11 +195,11 @@ export default function App() {
             </section>
 
             <section className="question-list">
-              {questions.map((question, index) => (
+              {selectedQuiz.questions.map((question, index) => (
                 <article className="question-card" key={question.id}>
                   <div className="question-head">
                     <p className="question-index">
-                      Q{index + 1}. {dimensions[question.dimension].label}
+                      Q{index + 1}. {selectedQuiz.dimensions[question.dimension].label}
                     </p>
                     <h2>{question.prompt}</h2>
                   </div>
@@ -177,14 +231,14 @@ export default function App() {
                 type="button"
                 className="primary-button"
                 onClick={handleSubmit}
-                disabled={answeredCount !== questions.length}
+                disabled={answeredCount !== totalQuestionCount}
               >
                 결과 보기
               </button>
               <p className="submit-copy">
-                {answeredCount === questions.length
+                {answeredCount === totalQuestionCount
                   ? "준비 완료. 결과를 확인해보세요."
-                  : `${questions.length - answeredCount}개 문항이 남아 있습니다.`}
+                  : `${totalQuestionCount - answeredCount}개 문항이 남아 있습니다.`}
               </p>
             </section>
           </>
@@ -194,12 +248,12 @@ export default function App() {
   );
 }
 
-function ComingSoonView({ onSelectJungsook }) {
+function ComingSoonView({ selectedPerson, onSelectJungsook }) {
   return (
     <section className="result-stack">
       <article className="result-card">
         <div className="section-head">
-          <h3>이 인물 퀴즈는 준비 중입니다</h3>
+          <h3>{selectedPerson.generation} {selectedPerson.name} 퀴즈는 준비 중입니다</h3>
           <p>선택 UI는 먼저 열어두었고, 실제 문항과 점수 로직은 순차적으로 추가할 예정입니다.</p>
         </div>
 
@@ -222,7 +276,7 @@ function ComingSoonView({ onSelectJungsook }) {
   );
 }
 
-function ResultView({ result, onReset }) {
+function ResultView({ result, dimensions, selectedPerson, onReset }) {
   const rankedDimensions = Object.entries(result.dimensionScores).sort(
     (a, b) => b[1] - a[1]
   );
@@ -277,7 +331,7 @@ function ResultView({ result, onReset }) {
                       background: dimensionAccent[key]
                     }}
                   />
-                </div>
+              </div>
                 <p className="dimension-copy">
                   {getDimensionSummary(score, info.summary)}
                 </p>
@@ -291,7 +345,7 @@ function ResultView({ result, onReset }) {
         <div className="section-head">
           <h3>결과 해석 안내</h3>
           <p>
-            이 결과는 공개 방송에서 드러난 30기 정숙의 스타일을 기준으로
+            이 결과는 공개 방송에서 드러난 {selectedPerson.generation} {selectedPerson.name}의 스타일을 기준으로
             계산한 엔터테인먼트형 적합도입니다.
           </p>
         </div>
