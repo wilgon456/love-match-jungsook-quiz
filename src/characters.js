@@ -34,7 +34,7 @@ export const characterProfiles = {
       "https://angryinch.tistory.com/923",
       "https://dategom.com/%EB%82%98%EB%8A%94%EC%86%94%EB%A1%9C-30%EA%B8%B0-%EC%B6%9C%EC%97%B0%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%B4%9D%EC%A0%95%EB%A6%AC/"
     ],
-    quizAvailable: false
+    quizAvailable: true
   },
   oksun: {
     id: "oksun",
@@ -59,7 +59,7 @@ export const characterProfiles = {
       "https://angryinch.tistory.com/923",
       "https://dategom.com/%EB%82%98%EB%8A%94%EC%86%94%EB%A1%9C-30%EA%B8%B0-%EC%B6%9C%EC%97%B0%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%B4%9D%EC%A0%95%EB%A6%AC/"
     ],
-    quizAvailable: false
+    quizAvailable: true
   },
   hyunsook: {
     id: "hyunsook",
@@ -85,7 +85,7 @@ export const characterProfiles = {
       "https://ccarinto.com/%eb%82%98%eb%8a%94-%ec%86%94%eb%a1%9c-30%ea%b8%b0-%ec%b6%9c%ec%97%b0%ec%a7%84-%ec%9d%b8%ec%8a%a4%ed%83%80%ea%b7%b8%eb%9e%a8-%ec%a0%95%eb%b3%b4%f0%9f%93%b7/",
       "https://dategom.com/%EB%82%98%EB%8A%94%EC%86%94%EB%A1%9C-30%EA%B8%B0-%EC%B6%9C%EC%97%B0%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%B4%9D%EC%A0%95%EB%A6%AC/"
     ],
-    quizAvailable: false
+    quizAvailable: true
   },
   youngsook: {
     id: "youngsook",
@@ -111,7 +111,7 @@ export const characterProfiles = {
       "https://ccarinto.com/%eb%82%98%eb%8a%94-%ec%86%94%eb%a1%9c-30%ea%b8%b0-%ec%b6%9c%ec%97%b0%ec%a7%84-%ec%9d%b8%ec%8a%a4%ed%83%80%ea%b7%b8%eb%9e%a8-%ec%a0%95%eb%b3%b4%f0%9f%93%b7/",
       "https://dategom.com/%EB%82%98%EB%8A%94%EC%86%94%EB%A1%9C-30%EA%B8%B0-%EC%B6%9C%EC%97%B0%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%B4%9D%EC%A0%95%EB%A6%AC/"
     ],
-    quizAvailable: false
+    quizAvailable: true
   },
   jungsook: {
     id: "jungsook",
@@ -162,7 +162,7 @@ export const characterProfiles = {
       "https://angryinch.tistory.com/923",
       "https://dategom.com/%EB%82%98%EB%8A%94%EC%86%94%EB%A1%9C-30%EA%B8%B0-%EC%B6%9C%EC%97%B0%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%B4%9D%EC%A0%95%EB%A6%AC/"
     ],
-    quizAvailable: false
+    quizAvailable: true
   },
   youngsoo: {
     id: "youngsoo",
@@ -188,7 +188,7 @@ export const characterProfiles = {
       "https://ccarinto.com/%eb%82%98%eb%8a%94-%ec%86%94%eb%a1%9c-30%ea%b8%b0-%ec%b6%9c%ec%97%b0%ec%a7%84-%ec%9d%b8%ec%8a%a4%ed%83%80%ea%b7%b8%eb%9e%a8-%ec%a0%95%eb%b3%b4%f0%9f%93%b7/",
       "https://dategom.com/%EB%82%98%EB%8A%94%EC%86%94%EB%A1%9C-30%EA%B8%B0-%EC%B6%9C%EC%97%B0%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%B4%9D%EC%A0%95%EB%A6%AC/"
     ],
-    quizAvailable: false
+    quizAvailable: true
   },
   youngchul: {
     id: "youngchul",
@@ -213,7 +213,7 @@ export const characterProfiles = {
       "https://angryinch.tistory.com/923",
       "https://dategom.com/%EB%82%98%EB%8A%94%EC%86%94%EB%A1%9C-30%EA%B8%B0-%EC%B6%9C%EC%97%B0%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%B4%9D%EC%A0%95%EB%A6%AC/"
     ],
-    quizAvailable: false
+    quizAvailable: true
   },
   sangchul: {
     id: "sangchul",
@@ -239,6 +239,6 @@ export const characterProfiles = {
       "https://ccarinto.com/%eb%82%98%eb%8a%94-%ec%86%94%eb%a1%9c-30%ea%b8%b0-%ec%b6%9c%ec%97%b0%ec%a7%84-%ec%9d%b8%ec%8a%a4%ed%83%80%ea%b7%b8%eb%9e%a8-%ec%a0%95%eb%b3%b4%f0%9f%93%b7/",
       "https://dategom.com/%EB%82%98%EB%8A%94%EC%86%94%EB%A1%9C-30%EA%B8%B0-%EC%B6%9C%EC%97%B0%EC%9E%90-%ED%94%84%EB%A1%9C%ED%95%84-%EC%B4%9D%EC%A0%95%EB%A6%AC/"
     ],
-    quizAvailable: false
+    quizAvailable: true
   }
 };

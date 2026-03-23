@@ -39,7 +39,7 @@ export function calculateResult(quiz, answers) {
     total,
     dimensionScores,
     tier: getTier(total),
-    summary: getTotalSummary(quiz.characterId, total)
+    summary: getTotalSummary(quiz.displayName ?? quiz.characterId, total)
   };
 }
 
@@ -75,11 +75,9 @@ function getTier(score) {
   return "스타일 차이 큼";
 }
 
-function getTotalSummary(characterId, score) {
-  const label = characterId === "jungsook" ? "30기 정숙" : "선택한 인물";
-
+function getTotalSummary(label, score) {
   if (score >= 85) {
-    return `방송 속 ${label} 스타일과 상당히 잘 맞는 편입니다. 자연스러움, 솔직함, 관계 텐션에서 높은 적합도가 보입니다.`;
+    return `방송 속 ${label} 스타일과 상당히 잘 맞는 편입니다. 주요 관계 스타일 축 전반에서 높은 적합도가 보입니다.`;
   }
 
   if (score >= 70) {
@@ -94,5 +92,5 @@ function getTotalSummary(characterId, score) {
     return `${label} 스타일과는 관계 템포나 표현 방식에서 차이가 있을 수 있습니다. 좋고 나쁨의 문제가 아니라 선호하는 대화 방식이 다를 수 있다는 뜻입니다.`;
   }
 
-  return `방송 속 ${label} 스타일과는 매력 포인트가 꽤 다를 수 있습니다. 특히 진정성, 솔직함, 관계 주도성 축에서 차이가 클 가능성이 있습니다.`;
+  return `방송 속 ${label} 스타일과는 매력 포인트가 꽤 다를 수 있습니다. 특히 관계 템포, 표현 방식, 선호 기준에서 차이가 클 가능성이 있습니다.`;
 }
