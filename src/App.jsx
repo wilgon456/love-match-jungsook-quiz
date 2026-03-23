@@ -87,7 +87,19 @@ export default function App() {
 
           <div className="notice-card">
             {isQuizAvailable
-              ? `질문 ${selectedQuiz.questions.length}개, 약 4~5분이 소요되며 결과는 총점과 5개 축 분석으로 제공됩니다. ${selectedQuiz.note}`
+              ? (
+                <>
+                  <span>
+                    질문 {selectedQuiz.questions.length}개, 약 4~5분이 소요되며 결과는 총점과
+                    5개 축 분석으로 제공됩니다.
+                  </span>
+                  <br />
+                  <span>
+                    이 테스트는 실제 인물과의 궁합이 아니라, 공개 방송과 정리글에서 드러난
+                    스타일 적합도를 엔터테인먼트형으로 해석한 결과입니다.
+                  </span>
+                </>
+              )
               : selectedPerson.sourceNote}
           </div>
         </section>
