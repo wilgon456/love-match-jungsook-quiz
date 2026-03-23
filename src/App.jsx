@@ -312,7 +312,7 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
   return (
     <section className="result-stack">
       <article className="result-card spotlight">
-        <p className="eyebrow">
+        <p className="eyebrow result-title">
           당신과 {selectedPerson.generation} {selectedPerson.name}와의 적합도
         </p>
         <div className="score-row">

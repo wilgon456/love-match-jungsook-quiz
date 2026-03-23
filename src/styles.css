@@ -259,6 +259,7 @@ button {
 .score-row {
   align-items: flex-start;
   justify-content: flex-start;
+  margin-top: 1rem;
 }
 
 .score-inline {
@@ -304,6 +305,12 @@ button {
   margin: 0.8rem 0 0;
   color: var(--text-soft);
   line-height: 1.65;
+}
+
+.result-title {
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  letter-spacing: -0.02em;
+  text-transform: none;
 }
 
 .profile-grid {
@@ -515,6 +522,10 @@ button {
   margin: 0;
   font-size: clamp(2.6rem, 5vw, 4rem);
   line-height: 1;
+}
+
+.result-summary {
+  margin-top: 1.25rem;
 }
 
 .top-match-card {

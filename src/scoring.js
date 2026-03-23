@@ -77,7 +77,7 @@ function getTier(score) {
 
 function getTotalSummary(label, score) {
   if (score >= 85) {
-    return `방송 속 ${label} 스타일과 상당히 잘 맞는 편입니다. 주요 관계 스타일 축 전반에서 높은 적합도가 보입니다.`;
+    return `${label} 스타일과 상당히 잘 맞는 편입니다. 주요 스타일 가중치 모두 높은 적합도가 보입니다.`;
   }
 
   if (score >= 70) {
