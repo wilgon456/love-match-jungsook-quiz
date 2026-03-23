@@ -289,13 +289,14 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
   return (
     <section className="result-stack">
       <article className="result-card spotlight">
-        <p className="eyebrow">YOUR RESULT</p>
+        <p className="eyebrow">
+          당신과 {selectedPerson.generation} {selectedPerson.name}와의 적합도
+        </p>
         <div className="score-row">
-          <div>
-            <p className="score-label-large">최종 적합도</p>
+          <div className="score-inline">
             <h2>{result.total}점</h2>
+            <div className="score-tier">{result.tier}</div>
           </div>
-          <div className="score-tier">{result.tier}</div>
         </div>
         <p className="result-summary">{result.summary}</p>
 

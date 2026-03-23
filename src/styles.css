@@ -238,6 +238,18 @@ button {
   gap: 1rem;
 }
 
+.score-row {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.score-inline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .progress-topline strong,
 .dimension-score {
   font-size: 1rem;
@@ -468,14 +480,9 @@ button {
 }
 
 .score-row h2 {
-  margin: 0.35rem 0 0;
+  margin: 0;
   font-size: clamp(2.6rem, 5vw, 4rem);
   line-height: 1;
-}
-
-.score-label-large {
-  margin: 0;
-  color: var(--text-soft);
 }
 
 .top-match-card {
