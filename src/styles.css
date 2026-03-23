@@ -133,6 +133,7 @@ button {
 .people-selector {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
   margin-top: 1.25rem;
 }
@@ -156,6 +157,14 @@ button {
   cursor: pointer;
 }
 
+.person-chip.female {
+  border-color: rgba(216, 102, 145, 0.3);
+}
+
+.person-chip.male {
+  border-color: rgba(86, 152, 109, 0.34);
+}
+
 .person-chip small {
   font-size: 0.72rem;
   color: var(--text-soft);
@@ -169,8 +178,17 @@ button {
 .person-chip.selected {
   color: white;
   border-color: transparent;
-  background: linear-gradient(135deg, #ea875d 0%, #d45a4e 100%);
   box-shadow: 0 18px 34px rgba(192, 91, 74, 0.22);
+}
+
+.person-chip.female.selected {
+  background: linear-gradient(135deg, #f097bc 0%, #d76490 100%);
+  box-shadow: 0 18px 34px rgba(215, 100, 144, 0.24);
+}
+
+.person-chip.male.selected {
+  background: linear-gradient(135deg, #7fc98f 0%, #4f9a63 100%);
+  box-shadow: 0 18px 34px rgba(79, 154, 99, 0.24);
 }
 
 .person-chip.selected small {

@@ -4,6 +4,13 @@ import { quizConfigs, scaleLabels } from "./quizzes";
 import { calculateResult, getDimensionSummary } from "./scoring";
 
 const scoreOptions = [1, 2, 3, 4, 5];
+const femaleCharacterIds = new Set([
+  "youngja",
+  "oksun",
+  "hyunsook",
+  "youngsook",
+  "jungsook"
+]);
 
 const dimensionAccents = [
   "var(--accent-1)",
@@ -91,12 +98,15 @@ export default function App() {
               {characterOrder.map((personId) => {
                 const person = characterProfiles[personId];
                 const selected = personId === selectedPersonId;
+                const groupClass = femaleCharacterIds.has(personId)
+                  ? "female"
+                  : "male";
 
                 return (
                   <button
                     key={person.id}
                     type="button"
-                    className={`person-chip ${selected ? "selected" : ""} ${person.quizAvailable ? "available" : "pending"}`}
+                    className={`person-chip ${groupClass} ${selected ? "selected" : ""} ${person.quizAvailable ? "available" : "pending"}`}
                     onClick={() => handlePersonChange(person.id)}
                     aria-pressed={selected}
                   >
