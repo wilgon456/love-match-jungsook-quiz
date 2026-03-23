@@ -75,9 +75,7 @@ export default function App() {
             {selectedPerson.generation} {selectedPerson.name} 스타일 적합도 퀴즈
           </h1>
           <p className="hero-copy">
-            {isQuizAvailable
-              ? selectedQuiz.description
-              : `${selectedPerson.generation} ${selectedPerson.name} 스타일 퀴즈도 선택할 수 있게 준비 중입니다. 지금은 정숙 퀴즈를 먼저 체험할 수 있습니다.`}
+            나는 솔로 30기 방송 속 인물들의 캐릭터를 바탕으로 당신이 각자의 캐릭터와 얼마나 잘 맞는이 확인하는 이상형 테스트입니다.
           </p>
 
           <div className="people-selector" aria-label="인물 선택">
