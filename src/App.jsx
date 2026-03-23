@@ -70,7 +70,7 @@ export default function App() {
 
       <main className="app-frame">
         <section className="hero-card">
-          <p className="eyebrow">ENTERTAINMENT QUIZ</p>
+          <p className="eyebrow">나는 솔로 이상형 퀴즈</p>
           <h1>
             {selectedPerson.generation} {selectedPerson.name} 스타일 적합도 퀴즈
           </h1>
