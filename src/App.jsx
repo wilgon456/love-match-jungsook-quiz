@@ -104,8 +104,9 @@ export default function App() {
           </div>
         </section>
 
-        <section className="profile-grid">
-          <article className="profile-card merged-profile-card">
+        {!showResult && (
+          <section className="profile-grid">
+            <article className="profile-card merged-profile-card">
             <div className="people-selector" aria-label="인물 선택">
               {characterOrder.map((personId) => {
                 const person = characterProfiles[personId];
@@ -178,8 +179,9 @@ export default function App() {
                 <p className="profile-copy">{selectedPerson.sourceNote}</p>
               </div>
             </div>
-          </article>
-        </section>
+            </article>
+          </section>
+        )}
 
         {!isQuizAvailable ? (
           <ComingSoonView
