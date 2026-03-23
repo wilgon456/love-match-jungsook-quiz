@@ -5,13 +5,13 @@ import { calculateResult, getDimensionSummary } from "./scoring";
 
 const scoreOptions = [1, 2, 3, 4, 5];
 
-const dimensionAccent = {
-  authenticity: "var(--accent-1)",
-  directness: "var(--accent-2)",
-  initiative: "var(--accent-3)",
-  practicalCare: "var(--accent-4)",
-  calmTension: "var(--accent-5)"
-};
+const dimensionAccents = [
+  "var(--accent-1)",
+  "var(--accent-2)",
+  "var(--accent-3)",
+  "var(--accent-4)",
+  "var(--accent-5)"
+];
 
 export default function App() {
   const [selectedPersonId, setSelectedPersonId] = useState("jungsook");
@@ -280,6 +280,13 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
   const rankedDimensions = Object.entries(result.dimensionScores).sort(
     (a, b) => b[1] - a[1]
   );
+  const dimensionKeys = Object.keys(dimensions);
+  const accentMap = Object.fromEntries(
+    dimensionKeys.map((key, index) => [
+      key,
+      dimensionAccents[index % dimensionAccents.length]
+    ])
+  );
 
   return (
     <section className="result-stack">
@@ -317,7 +324,7 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
                   <div className="dimension-name-wrap">
                     <span
                       className="dimension-dot"
-                      style={{ background: dimensionAccent[key] }}
+                      style={{ background: accentMap[key] }}
                     />
                     <strong>{info.label}</strong>
                   </div>
@@ -328,10 +335,10 @@ function ResultView({ result, dimensions, selectedPerson, onReset }) {
                     className="dimension-bar-fill"
                     style={{
                       width: `${score}%`,
-                      background: dimensionAccent[key]
+                      background: accentMap[key]
                     }}
                   />
-              </div>
+                </div>
                 <p className="dimension-copy">
                   {getDimensionSummary(score, info.summary)}
                 </p>
