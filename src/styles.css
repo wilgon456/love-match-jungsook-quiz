@@ -71,7 +71,7 @@ button {
 .app-frame {
   position: relative;
   z-index: 1;
-  width: min(980px, calc(100% - 2rem));
+  width: min(1080px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 2rem 0 4rem;
 }
@@ -105,14 +105,17 @@ button {
 
 .hero-card h1 {
   margin: 0.55rem 0 0;
-  font-size: clamp(2.2rem, 4vw, 4.2rem);
-  line-height: 0.98;
+  width: 100%;
+  max-width: none;
+  font-size: clamp(2.2rem, 4.4vw, 4.4rem);
+  line-height: 1.02;
   letter-spacing: -0.04em;
 }
 
 .hero-copy {
   margin: 1rem 0 0;
-  max-width: 44rem;
+  width: 100%;
+  max-width: none;
   font-size: 1.05rem;
   line-height: 1.7;
   color: var(--text-soft);
